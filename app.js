@@ -25,6 +25,11 @@ app.get("/hello", (req, res) => {
   res.send("Hello Omar");
 });
 
+// to send welcome response 
+app.get("/", (req, res) => {
+  res.send("Hello in Node JS project");
+});
+
 // Path Params
 app.get("/sendNumbers/:num1/:num2", (req, res) => {
   const num1 = req.params.num1;
