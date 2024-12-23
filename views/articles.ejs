@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="box-sizing: border-box; padding: 0px; margin: 0px">
+    <div class="container" style="padding: 5px 30px">
+      <h1>All Articles Page</h1>
+      <hr />
+      <div
+        style="
+          background-color: #f4f4f4;
+          border-radius: 5px;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        "
+      >
+        <% allArticles.forEach(article => { %>
+        <div
+          style="
+            list-style: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          "
+        >
+          <h3><%= article.title %></h3>
+          <p><%= article.body %></p>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </body>
+</html>
