@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Article = require("./models/Article");
 const app = express();
 require("dotenv").config();
+
 // userName : MohamedOmar
 // Password : Omar123
 // mongodb+srv://MohamedOmar:<db_password>@cluster0.u5zne.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
