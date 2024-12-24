@@ -2,15 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Article = require("./models/Article");
 const app = express();
-
+require("dotenv").config();
 // userName : MohamedOmar
 // Password : Omar123
 // mongodb+srv://MohamedOmar:<db_password>@cluster0.u5zne.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 mongoose
-  .connect(
-    "mongodb+srv://MohamedOmar:Omar123@cluster0.u5zne.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Connected successfully");
   })
@@ -25,7 +23,7 @@ app.get("/hello", (req, res) => {
   res.send("Hello Omar");
 });
 
-// to send welcome response 
+// to send welcome response
 app.get("/", (req, res) => {
   res.send("Hello in Node JS project");
 });
@@ -75,54 +73,53 @@ app.get("/renderNumbers", (req, res) => {
 // Article Endpoints
 // send Article
 app.post("/articles", async (req, res) => {
-  const newArticle = new Article()
-  newArticle.title = req.body.title
-  newArticle.body = req.body.description
-  newArticle.numberOfLikes = 0
-  await newArticle.save()
-  res.json(newArticle)
-})
+  const newArticle = new Article();
+  newArticle.title = req.body.title;
+  newArticle.body = req.body.description;
+  newArticle.numberOfLikes = 0;
+  await newArticle.save();
+  res.json(newArticle);
+});
 
 // get all Articles
 app.get("/articles", async (req, res) => {
-  const articles = await Article.find()
-  res.json(articles)
-})
+  const articles = await Article.find();
+  res.json(articles);
+});
 
-// get a specific Article 
-app.get('/articles/:articleId', async (req, res) => {
+// get a specific Article
+app.get("/articles/:articleId", async (req, res) => {
   const id = req.params.articleId;
   try {
-    const article = await Article.findById(id)
-    res.json(article)
-    return
+    const article = await Article.findById(id);
+    res.json(article);
+    return;
   } catch (error) {
-    console.log("error while reading article of id ", id)
-    return res.json(error)
+    console.log("error while reading article of id ", id);
+    return res.json(error);
   }
-})
+});
 
-// delete a specific Article 
-app.delete('/articles/:articleId', async (req, res) => {
+// delete a specific Article
+app.delete("/articles/:articleId", async (req, res) => {
   const id = req.params.articleId;
   try {
-    const article = await Article.findByIdAndDelete(id)
-    res.json(article)
-    return
+    const article = await Article.findByIdAndDelete(id);
+    res.json(article);
+    return;
   } catch (error) {
-    console.log("error while reading article of id ", id)
-    return res.json(error)
+    console.log("error while reading article of id ", id);
+    return res.json(error);
   }
-})
+});
 
 // to show Articles in HTML
 app.get("/showArticles", async (req, res) => {
-  const articles = await Article.find()
-res.render("articles.ejs", {
-  allArticles: articles,
+  const articles = await Article.find();
+  res.render("articles.ejs", {
+    allArticles: articles,
+  });
 });
-})
-
 
 // to run the server
 app.listen(3000, () => {
